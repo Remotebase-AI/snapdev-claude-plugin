@@ -1,0 +1,26 @@
+{
+  "name": "snapdev",
+  "displayName": "SnapDev",
+  "version": "0.1.0",
+  "description": "Hire a SnapDev engineer without leaving Claude. Claude writes the brief, shows a quote with a hard cap, and brings the finished work back as a PR to review.",
+  "author": {
+    "name": "SnapDev",
+    "url": "https://snapdev.ai"
+  },
+  "homepage": "https://snapdev.ai",
+  "repository": "https://github.com/Remotebase-AI/snapdev-claude-plugin",
+  "license": "MIT",
+  "icon": "./icon.png",
+  "documentationUrl": "https://snapdev.ai/claude",
+  "supportUrl": "https://snapdev.ai/claude",
+  "privacyPolicyUrl": "https://snapdev.ai/privacy",
+  "termsOfServiceUrl": "https://snapdev.ai/terms",
+  "keywords": [
+    "engineers",
+    "deploy",
+    "payments",
+    "auth",
+    "debugging",
+    "human-in-the-loop"
+  ]
+}

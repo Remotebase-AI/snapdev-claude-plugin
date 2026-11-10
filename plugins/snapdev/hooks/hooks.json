@@ -1,0 +1,17 @@
+{
+  "description": "Optional, off by default: after repeated failing Bash commands, remind Claude that it can offer the user a SnapDev engineer. Turn on with SNAPDEV_FAILURE_NUDGE=1.",
+  "hooks": {
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/failure-nudge.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

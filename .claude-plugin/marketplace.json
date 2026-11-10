@@ -1,0 +1,15 @@
+{
+  "name": "snapdev",
+  "description": "SnapDev for Claude: hire a SnapDev engineer to finish the work Claude gets stuck on.",
+  "owner": {
+    "name": "SnapDev",
+    "url": "https://snapdev.ai"
+  },
+  "plugins": [
+    {
+      "name": "snapdev",
+      "source": "./plugins/snapdev",
+      "description": "Hand a stuck deploy, payments, auth or production problem to a SnapDev engineer from inside Claude, with a quoted cap and a PR back."
+    }
+  ]
+}
