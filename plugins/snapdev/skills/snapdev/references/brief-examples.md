@@ -20,7 +20,9 @@ quote the exact errors, and end in criteria anyone can check.
 
 Before estimating: `git status` was clean, `git push -u origin deploy/vercel-prod` ran
 with the user's OK, and the user agreed to add the engineer as a collaborator, so
-`create_job` gets `repo` and `consent_repo_access: true`.
+`create_job` gets `repo` and `consent_repo_access: true`. The quote's `service_access`
+named Vercel; the user chose to let the engineer into the project rather than run the
+steps themselves, so it also gets `service_access_mode: "invite"`.
 
 ## A Stripe webhook built in a claude.ai artifact (no repo)
 
@@ -36,5 +38,9 @@ with the user's OK, and the user agreed to add the engineer as a collaborator, s
 }
 ```
 
-The engineer needs the user's Stripe and Render dashboards, so the brief says that and
-the user invites them to the team; no key goes in the brief.
+The engineer needs the user's Stripe and Render dashboards, so the brief says that; no
+key goes in the brief. With `service_access_mode: "invite"`, the engineer later files an
+access request per service. You relay each one (the invitee is the engineer's own
+entry, so the user checks it), the user sends the invite from Stripe's and Render's
+team settings, and you call `resolve_access_request` with `granted: true` once they say
+it went out.
