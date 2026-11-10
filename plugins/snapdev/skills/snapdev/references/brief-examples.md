@@ -1,7 +1,9 @@
 # Brief examples
 
-Two briefs as they would go to `estimate_job`. Both name variables instead of values,
-quote the exact errors, and end in criteria anyone can check.
+Two briefs as they would go to `estimate_job`, drafted from the conversation without a
+separate round of corrections. Both name variables instead of values, quote the exact
+errors, and end in criteria anyone can check. The brief is for the engineer, so it is
+technical; what Claude says to the builder about it is not.
 
 ## A deploy that keeps failing (repo in Claude Code)
 
@@ -19,10 +21,12 @@ quote the exact errors, and end in criteria anyone can check.
 ```
 
 Before estimating: `git status` was clean, `git push -u origin deploy/vercel-prod` ran
-with the user's OK, and the user agreed to add the engineer as a collaborator, so
-`create_job` gets `repo` and `consent_repo_access: true`. The quote's `service_access`
-named Vercel; the user chose to let the engineer into the project rather than run the
-steps themselves, so it also gets `service_access_mode: "invite"`.
+with the builder's OK, and the builder agreed to add the engineer as a collaborator, so
+`create_job` gets the `estimate_id`, `repo` and `consent_repo_access: true`. The
+estimate's `service_access` named Vercel; the builder chose to let the engineer into
+the project rather than run the steps themselves, so it also gets
+`service_access_mode: "invite"`. Nothing else is chosen at create: there is one rate,
+and the estimate is in hours.
 
 ## A Stripe webhook built in a claude.ai artifact (no repo)
 
@@ -38,9 +42,9 @@ steps themselves, so it also gets `service_access_mode: "invite"`.
 }
 ```
 
-The engineer needs the user's Stripe and Render dashboards, so the brief says that; no
+The engineer needs the builder's Stripe and Render dashboards, so the brief says that; no
 key goes in the brief. With `service_access_mode: "invite"`, the engineer later files an
 access request per service. You relay each one (the invitee is the engineer's own
-entry, so the user checks it), the user sends the invite from Stripe's and Render's
+entry, so the builder checks it), the builder sends the invite from Stripe's and Render's
 team settings, and you call `resolve_access_request` with `granted: true` once they say
 it went out.
