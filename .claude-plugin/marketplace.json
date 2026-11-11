@@ -9,7 +9,7 @@
     {
       "name": "snapdev",
       "source": "./plugins/snapdev",
-      "description": "Hand a stuck deploy, payments, auth or production problem to a SnapDev engineer from inside Claude, with an estimate in hours you approve first."
+      "description": "Hand a stuck deploy, payments, auth or production problem to a SnapDev engineer from inside Claude, with an estimate in hours before you confirm."
     }
   ]
 }
