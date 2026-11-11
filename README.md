@@ -1,8 +1,8 @@
 # snapdev-claude-plugin
 
 The Claude plugin and plugin marketplace for **SnapDev for Claude**: a builder hires a
-SnapDev engineer from inside Claude, approves an estimate in hours, and is told in
-plain words what the engineer changed and how to check it. Product spec:
+SnapDev engineer from inside Claude, sees an estimate in hours and confirms it, and is
+told in plain words what the engineer changed and how to check it. Product spec:
 [`PRD.md`](PRD.md).
 
 The marketplace is named `snapdev` and lists one plugin, `snapdev`.
@@ -20,15 +20,13 @@ plugins/snapdev/
 dev/staging.mcp.json                   env-overridable server URL for staging and local testing
 ```
 
-The MCP server itself (20 tools), the four MCP App cards
-(`ui://snapdev/{confirm,status,overrun,delivery}.html`) and the job APIs live in
-`snapdev-backend` (`api/mcp/`). This repo only ships the client side.
+The MCP server itself (18 tools), its MCP App cards (`ui://snapdev/*.html`) and the
+job APIs live in `snapdev-backend` (`api/mcp/`). This repo only ships the client side.
 
 The tools: `list_services`, `estimate_job`, `create_job`, `get_job`, `list_jobs`,
 `reply_to_engineer`, `approve_overrun`, `cancel_job`, `request_revision`, `rate_job`,
-`get_balance`, `buy_hours`, `set_spend_limit`, `resolve_access_request`, `start_call`,
-`decline_call`, `start_consult`, `send_consult_message`, `get_consult_messages`,
-`end_consult`.
+`get_balance`, `buy_hours`, `start_call`, `decline_call`, `start_consult`,
+`send_consult_message`, `get_consult_messages`, `end_consult`.
 
 ## Install
 

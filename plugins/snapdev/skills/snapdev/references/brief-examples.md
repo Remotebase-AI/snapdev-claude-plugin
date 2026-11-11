@@ -22,11 +22,12 @@ technical; what Claude says to the builder about it is not.
 
 Before estimating: `git status` was clean, `git push -u origin deploy/vercel-prod` ran
 with the builder's OK, and the builder agreed to add the engineer as a collaborator, so
-`create_job` gets the `estimate_id`, `repo` and `consent_repo_access: true`. The
-estimate's `service_access` named Vercel; the builder chose to let the engineer into
-the project rather than run the steps themselves, so it also gets
-`service_access_mode: "invite"`. Nothing else is chosen at create: there is one rate,
-and the estimate is in hours.
+`create_job` gets the `estimate_id`, `repo` and `consent_repo_access: true`. Nothing
+else is chosen at create: there is one rate, and the estimate is in hours.
+
+The estimate's `likely_access` named Vercel, so Claude added one line to the estimate:
+"Your engineer may ask you to invite them to Vercel. They will walk you through it in
+the chat or on a call." Nothing was asked of the builder at that point.
 
 ## A Stripe webhook built in a claude.ai artifact (no repo)
 
@@ -43,8 +44,10 @@ and the estimate is in hours.
 ```
 
 The engineer needs the builder's Stripe and Render dashboards, so the brief says that; no
-key goes in the brief. With `service_access_mode: "invite"`, the engineer later files an
-access request per service. You relay each one (the invitee is the engineer's own
-entry, so the builder checks it), the builder sends the invite from Stripe's and Render's
-team settings, and you call `resolve_access_request` with `granted: true` once they say
-it went out.
+key goes in the brief. Later the engineer asks, in a message, to be added to both.
+Claude tells the builder which accounts and shows the address the engineer gave as the
+engineer's own words, and the builder sends the invitations from Stripe's and Render's
+team settings. If the builder is unsure where those are, the engineer walks them
+through it on a call. No password, key or token is sent to anyone, and there is no tool
+to call: the builder just says when it is done and Claude passes that on with
+`reply_to_engineer`.

@@ -1,8 +1,8 @@
 {
   "name": "snapdev",
   "displayName": "SnapDev",
-  "version": "0.2.0",
-  "description": "Hire a SnapDev engineer without leaving Claude. Claude writes the brief, shows an estimate in hours for you to approve, and tells you what changed when the work is done.",
+  "version": "0.3.0",
+  "description": "Hire a SnapDev engineer without leaving Claude. Claude writes the brief, shows an estimate in hours before you confirm, and tells you what changed when the work is done.",
   "author": {
     "name": "SnapDev",
     "url": "https://snapdev.ai"
