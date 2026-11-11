@@ -27,7 +27,6 @@ the skill's **Calls with the engineer** section: ask whether they mean now or la
 unless they said, show only the times the tool returned, exactly as written, and book
 only the time they picked.
 
-For a live consult whose time is up, follow the skill's **Live consult** section.
 
 Do not say what a job has used: the engineer logs the time after the work and it shows
 in the builder's SnapDev hours. If they ask, say that, and offer their current hours

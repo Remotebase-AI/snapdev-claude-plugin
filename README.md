@@ -11,7 +11,7 @@ The marketplace is named `snapdev` and lists one plugin, `snapdev`.
 .claude-plugin/marketplace.json        marketplace "snapdev"
 plugins/snapdev/
   .claude-plugin/plugin.json           plugin manifest
-  .mcp.json                            remote MCP server https://mcp.snapdev.ai/mcp (HTTP, OAuth)
+  .mcp.json                            remote MCP server https://api.snapdev.ai/mcp (HTTP, OAuth)
   skills/snapdev/SKILL.md              when to bring in an engineer, the brief, the estimate, calls, done (/snapdev)
   skills/snapdev/references/           worked brief examples
   commands/jobs.md                     /snapdev:jobs
@@ -56,7 +56,7 @@ conversation matches. `/snapdev:jobs` checks on open jobs.
 
 Chat loads the skill and the `jobs` command (as a skill) and ignores the hook; Cowork
 loads all of it. To use only the tools, add the connector on its own:
-**Customize > Connectors > Add custom connector**, URL `https://mcp.snapdev.ai/mcp`.
+**Customize > Connectors > Add custom connector**, URL `https://api.snapdev.ai/mcp`.
 ChatGPT, Cursor and other MCP clients connect to the same URL.
 
 ## Staging and local testing
@@ -66,7 +66,7 @@ plugin's remote server on its Connectors tab only when the URL is fixed, so a
 `${VAR}` there would break the plugin outside Claude Code.
 
 To point Claude Code at another server, load the plugin from disk and take the MCP
-server from `dev/staging.mcp.json`, whose URL is `${SNAPDEV_MCP_URL:-https://mcp.snapdev.ai/mcp}`:
+server from `dev/staging.mcp.json`, whose URL is `${SNAPDEV_MCP_URL:-https://api.snapdev.ai/mcp}`:
 
 ```bash
 SNAPDEV_MCP_URL=https://<staging-backend-host>/mcp \
