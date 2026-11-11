@@ -1,9 +1,9 @@
 # snapdev-claude-plugin
 
 The Claude plugin and plugin marketplace for **SnapDev for Claude**: a builder hires a
-SnapDev engineer from inside Claude, sees an estimate in hours and confirms it, and is
-told in plain words what the engineer changed and how to check it. Product spec:
-[`PRD.md`](PRD.md).
+SnapDev engineer from inside Claude, sees an estimate in hours and confirms it, can
+call the engineer now or book a call for later, and is told in plain words what the
+engineer changed and how to check it. Product spec: [`PRD.md`](PRD.md).
 
 The marketplace is named `snapdev` and lists one plugin, `snapdev`.
 
@@ -12,7 +12,7 @@ The marketplace is named `snapdev` and lists one plugin, `snapdev`.
 plugins/snapdev/
   .claude-plugin/plugin.json           plugin manifest
   .mcp.json                            remote MCP server https://mcp.snapdev.ai/mcp (HTTP, OAuth)
-  skills/snapdev/SKILL.md              when to bring in an engineer, the brief, the estimate, done (/snapdev)
+  skills/snapdev/SKILL.md              when to bring in an engineer, the brief, the estimate, calls, done (/snapdev)
   skills/snapdev/references/           worked brief examples
   commands/jobs.md                     /snapdev:jobs
   hooks/hooks.json, failure-nudge.sh   optional nudge after repeated failing Bash, off by default
@@ -20,13 +20,14 @@ plugins/snapdev/
 dev/staging.mcp.json                   env-overridable server URL for staging and local testing
 ```
 
-The MCP server itself (18 tools), its MCP App cards (`ui://snapdev/*.html`) and the
+The MCP server itself (21 tools), its MCP App cards (`ui://snapdev/*.html`) and the
 job APIs live in `snapdev-backend` (`api/mcp/`). This repo only ships the client side.
 
 The tools: `list_services`, `estimate_job`, `create_job`, `get_job`, `list_jobs`,
 `reply_to_engineer`, `approve_overrun`, `cancel_job`, `request_revision`, `rate_job`,
-`get_balance`, `buy_hours`, `start_call`, `decline_call`, `start_consult`,
-`send_consult_message`, `get_consult_messages`, `end_consult`.
+`get_balance`, `buy_hours`, `start_call`, `decline_call`, `get_call_times`,
+`book_call`, `cancel_booked_call`, `start_consult`, `send_consult_message`,
+`get_consult_messages`, `end_consult`.
 
 ## Install
 

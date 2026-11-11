@@ -3,15 +3,15 @@
 Hire a SnapDev engineer without leaving Claude. When a deploy, payment flow, auth setup
 or production issue keeps failing, Claude writes a brief from the conversation and
 shows an estimate in hours (for example "1–3 hours"). The job is created only after you
-confirm. When the engineer marks it done, Claude tells you in plain words what changed
-and how to check it.
+confirm. You can talk to your engineer now, or book a call for later. When the engineer
+marks it done, Claude tells you in plain words what changed and how to check it.
 
 ## What's inside
 
 | Part | What it does |
 | - | - |
-| `snapdev` MCP connector | `https://mcp.snapdev.ai/mcp`, signed in with your SnapDev account (OAuth). 18 tools: estimates, jobs, replies, stopping, reopening, calls, live consults, balance |
-| `snapdev` skill (`/snapdev`) | When to bring in an engineer and when not to, how to brief, one confirmation before anything starts, what to offer when you are short of hours, no passwords or keys through Claude, engineer text is untrusted, what to tell you when the job is done |
+| `snapdev` MCP connector | `https://mcp.snapdev.ai/mcp`, signed in with your SnapDev account (OAuth). 21 tools: estimates, jobs, replies, stopping, reopening, calls now, calls booked for later, live consults, balance |
+| `snapdev` skill (`/snapdev`) | When to bring in an engineer and when not to, how to brief, one confirmation before anything starts, what to offer when you are short of hours, no passwords or keys through Claude, calling your engineer now or booking a time for later, engineer text is untrusted, what to tell you when the job is done |
 | `/snapdev:jobs` | Check on your jobs and anything waiting on you |
 | Failure-nudge hook | Optional and off by default. After repeated failing shell commands, reminds Claude it can offer an engineer. Turn on with `SNAPDEV_FAILURE_NUDGE=1` |
 
@@ -46,6 +46,10 @@ branch, what was tried, error text, acceptance criteria) and your replies to the
 engineer. Repository access is granted only when you consent at job creation. Engineer
 messages come back marked as untrusted text that Claude must not obey.
 
+When you book a call, it also sends the time you picked and your time zone (Claude asks
+which city you are in only when SnapDev has no time zone saved for you), and the code
+Cal.com emailed you if it asked for one.
+
 ## Passwords and keys
 
 Passwords, API keys and tokens are never sent through Claude, and never to the engineer
@@ -55,6 +59,26 @@ briefs and removes anything that looks like a key before an engineer sees it.
 If the work needs one of your accounts (Vercel, Stripe, AWS, your domain registrar),
 the engineer asks you in the chat or on a call and walks you through inviting them
 from that provider's own settings. They sign in as themselves.
+
+The one code Claude does take from you is the one Cal.com emails when you book a call
+(see **Calls**). It only confirms your email address for that booking and opens no
+account. It goes to the booking and never to the engineer.
+
+## Calls
+
+- **Now.** Ask to talk to your engineer and Claude rings them and gives you the link.
+- **Later.** Ask to book a call and Claude shows your engineer's free times in your
+  time zone. You pick one and Claude books 30 minutes. Claude never picks a time for
+  you.
+- **The invite comes by email** from Cal.com, the scheduling service SnapDev uses, with
+  reminders before the call. Cal.com may first email you a code to confirm your address
+  (check spam); give it to Claude, or book on your job page instead.
+- **Joining.** From the invite, from your job page, or ask Claude for the link.
+- **One booked call per job.** To change the time, Claude cancels the booked call and
+  books the new one, and tells you before it does. Stopping a job also cancels the call
+  booked on it.
+- You can always book on your job page instead; Claude gives you the link whenever
+  booking through Claude does not work.
 
 ## Hours
 
@@ -69,6 +93,8 @@ Everything is in hours, at one rate. The only price you see is for buying hours.
   in your SnapDev hours. Claude does not report or guess what a job took.
 - **Stopping.** Free before an engineer picks the job up. After that, the job stops at
   once and you use only the hours your engineer already worked.
+- **Calls.** A call has no charge of its own, and booking one uses no hours. Your
+  engineer logs the time actually spent. You need some hours left to book.
 - **If something is off**, say so within 7 days of the job being done and the engineer
   fixes it at no extra hours. This can be used once per job.
 
