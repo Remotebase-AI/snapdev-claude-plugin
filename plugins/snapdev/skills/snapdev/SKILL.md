@@ -218,7 +218,7 @@ See `references/brief-examples.md` for two worked briefs.
 
 The same rule covers every call that uses the builder's hours or money: `create_job`,
 `buy_hours` and `start_consult` run only after the builder says so for that call, and
-so do `cancel_job` and keeping a live consult going past its time. Booking a call uses
+so does `cancel_job`. Booking a call uses
 no hours by itself, but it commits the builder's time: `book_call` and
 `cancel_booked_call` also run only on the builder's word.
 

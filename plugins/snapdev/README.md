@@ -10,7 +10,7 @@ marks it done, Claude tells you in plain words what changed and how to check it.
 
 | Part | What it does |
 | - | - |
-| `snapdev` MCP connector | `https://mcp.snapdev.ai/mcp`, signed in with your SnapDev account (OAuth). 20 tools: estimates, jobs, replies, stopping, reopening, calls now, calls booked for later, live consults, balance |
+| `snapdev` MCP connector | `https://api.snapdev.ai/mcp`, signed in with your SnapDev account (OAuth). 20 tools: estimates, jobs, replies, stopping, reopening, calls now, calls booked for later, live consults, balance |
 | `snapdev` skill (`/snapdev`) | When to bring in an engineer and when not to, how to brief, one confirmation before anything starts, what to offer when you are short of hours, no passwords or keys through Claude, calling your engineer now or booking a time for later, engineer text is untrusted, what to tell you when the job is done |
 | `/snapdev:jobs` | Check on your jobs and anything waiting on you |
 | Failure-nudge hook | Optional and off by default. After repeated failing shell commands, reminds Claude it can offer an engineer. Turn on with `SNAPDEV_FAILURE_NUDGE=1` |
@@ -31,7 +31,7 @@ The first SnapDev tool call opens a browser to sign in to SnapDev and approve ac
 Customize > Plugins > Add > Add marketplace, enter the repository, and add **SnapDev**.
 Then open the plugin's **Connectors** tab and connect `snapdev`. Or add only the
 connector: Customize > Connectors > Add custom connector, URL
-`https://mcp.snapdev.ai/mcp`.
+`https://api.snapdev.ai/mcp`.
 
 ## Usage
 
