@@ -20,11 +20,11 @@ plugins/snapdev/
 dev/staging.mcp.json                   env-overridable server URL for staging and local testing
 ```
 
-The MCP server itself (21 tools), its MCP App cards (`ui://snapdev/*.html`) and the
+The MCP server itself (20 tools), its MCP App cards (`ui://snapdev/*.html`) and the
 job APIs live in `snapdev-backend` (`api/mcp/`). This repo only ships the client side.
 
 The tools: `list_services`, `estimate_job`, `create_job`, `get_job`, `list_jobs`,
-`reply_to_engineer`, `approve_overrun`, `cancel_job`, `request_revision`, `rate_job`,
+`reply_to_engineer`, `cancel_job`, `request_revision`, `rate_job`,
 `get_balance`, `buy_hours`, `start_call`, `decline_call`, `get_call_times`,
 `book_call`, `cancel_booked_call`, `start_consult`, `send_consult_message`,
 `get_consult_messages`, `end_consult`.
