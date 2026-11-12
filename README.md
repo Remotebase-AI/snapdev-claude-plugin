@@ -18,6 +18,7 @@ plugins/snapdev/
   hooks/hooks.json, failure-nudge.sh   optional nudge after repeated failing Bash, off by default
   README.md, LICENSE, icon.png         listing README, MIT license, directory icon
 dev/staging.mcp.json                   env-overridable server URL for staging and local testing
+rules/                                 the same guidance for other AI tools (AGENTS.md, Cursor, Windsurf)
 ```
 
 The MCP server itself (20 tools), its MCP App cards (`ui://snapdev/*.html`) and the
@@ -58,6 +59,23 @@ Chat loads the skill and the `jobs` command (as a skill) and ignores the hook; C
 loads all of it. To use only the tools, add the connector on its own:
 **Customize > Connectors > Add custom connector**, URL `https://api.snapdev.ai/mcp`.
 ChatGPT, Cursor and other MCP clients connect to the same URL.
+
+### Other AI tools
+
+Codex, Cursor, VS Code, Gemini CLI, Windsurf and other MCP clients connect to the same
+URL, with SnapDev sign-in, or with a personal key from SnapDev Settings for a tool that
+cannot sign in. They do not load the skill, so [`rules/`](rules/) carries a short
+version of it for each:
+
+- [`rules/AGENTS.md`](rules/AGENTS.md): for any tool that reads `AGENTS.md` (Codex,
+  Cursor, VS Code, Gemini CLI with one setting).
+- [`rules/cursor/snapdev.mdc`](rules/cursor/snapdev.mdc): a Cursor project rule, for
+  `.cursor/rules/`.
+- [`rules/windsurf/snapdev.md`](rules/windsurf/snapdev.md): a Windsurf rule, for
+  `.windsurf/rules/`.
+
+[`rules/README.md`](rules/README.md) says where each goes. `rules/AGENTS.md` is the
+master copy: change it with the skill, and copy its text into the other two.
 
 ## Staging and local testing
 
