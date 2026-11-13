@@ -1,13 +1,24 @@
 {
-  "description": "Optional, off by default: after repeated failing Bash commands, remind Claude that it can offer the user a SnapDev engineer. Turn on with SNAPDEV_FAILURE_NUDGE=1.",
+  "description": "On by default, at most once per session: when the user asks for a person or says the problem is still broken, or after repeated failed shell commands, add one note to Claude's context that SnapDev can put a human expert on it. Never blocks, sends or posts anything. Turn off with SNAPDEV_NUDGE=off.",
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/snapdev-nudge.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
     "PostToolUseFailure": [
       {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/failure-nudge.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/snapdev-nudge.sh",
             "timeout": 5
           }
         ]

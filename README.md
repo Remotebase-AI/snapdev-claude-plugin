@@ -1,9 +1,9 @@
 # snapdev-claude-plugin
 
 The Claude plugin and plugin marketplace for **SnapDev for Claude**: a builder hires a
-SnapDev engineer from inside Claude, sees an estimate in hours and confirms it, can
-call the engineer now or book a call for later, and is told in plain words what the
-engineer changed and how to check it. Product spec: [`PRD.md`](PRD.md).
+human expert (a SnapDev software engineer) from inside Claude, sees an estimate in hours
+and confirms it, can call their expert now or book a call for later, and is told in plain
+words what changed and how to check it. Product spec: [`PRD.md`](PRD.md).
 
 The marketplace is named `snapdev` and lists one plugin, `snapdev`.
 
@@ -12,27 +12,30 @@ The marketplace is named `snapdev` and lists one plugin, `snapdev`.
 plugins/snapdev/
   .claude-plugin/plugin.json           plugin manifest
   .mcp.json                            remote MCP server https://api.snapdev.ai/mcp (HTTP, OAuth)
-  skills/snapdev/SKILL.md              when to bring in an engineer, the brief, the estimate, calls, done (/snapdev)
+  skills/snapdev/SKILL.md              when to bring in a human expert, the brief, the estimate, calls, done (/snapdev)
   skills/snapdev/references/           worked brief examples
   commands/jobs.md                     /snapdev:jobs
-  hooks/hooks.json, failure-nudge.sh   optional nudge after repeated failing Bash, off by default
+  hooks/hooks.json, snapdev-nudge.sh   once-per-session note when stuck or asking for a person; SNAPDEV_NUDGE=off
   README.md, LICENSE, icon.png         listing README, MIT license, directory icon
 dev/staging.mcp.json                   env-overridable server URL for staging and local testing
-rules/                                 the same guidance for other AI tools (AGENTS.md, Cursor, Windsurf)
+rules/                                 the same guidance and hooks for other AI tools (AGENTS.md, Cursor, VS Code, Codex, Windsurf)
+gemini-extension.json, GEMINI.md      the Gemini CLI extension
+server.json                           the official MCP Registry entry
+tests/                                tests for the hook script
 ```
 
-The MCP server itself (20 tools), its MCP App cards (`ui://snapdev/*.html`) and the
+The MCP server itself (21 tools and one prompt), its MCP App cards (`ui://snapdev/*.html`) and the
 job APIs live in `snapdev-backend` (`api/mcp/`). This repo only ships the client side.
 
 The tools: `list_services`, `estimate_job`, `create_job`, `get_job`, `list_jobs`,
-`reply_to_engineer`, `cancel_job`, `request_revision`, `rate_job`,
+`list_github_repos`, `reply_to_engineer`, `cancel_job`, `request_revision`, `rate_job`,
 `get_balance`, `buy_hours`, `start_call`, `decline_call`, `get_call_times`,
 `book_call`, `cancel_booked_call`, `start_consult`, `send_consult_message`,
-`get_consult_messages`, `end_consult`.
+`get_consult_messages`, `end_consult`. The prompt: `get_a_human_expert` (shows as
+`/snapdev:get_a_human_expert (MCP)` in Claude Code and as `/get_a_human_expert` in Gemini
+CLI), which takes the problem and what was already tried and starts an estimate.
 
 ## Install
-
-The GitHub location below is the intended one; the repository is not published yet.
 
 ### Claude Code
 
@@ -97,15 +100,26 @@ lists the plugin's production server too, turn `plugin:snapdev:snapdev` off in `
 for the session. The backend serving that URL must set `MCP_RESOURCE_URL` to the same
 value, or the OAuth resource check fails.
 
-## The failure-nudge hook
+## The "stuck" hook
 
-Off by default. When `SNAPDEV_FAILURE_NUDGE=1` is set in Claude Code's environment
-(export it, or add it under `"env"` in `settings.json`), `hooks/failure-nudge.sh`
-counts failed Bash commands per session. After `SNAPDEV_FAILURE_NUDGE_THRESHOLD`
-(default 3) failures within `SNAPDEV_FAILURE_NUDGE_WINDOW` seconds (default 900), it
-adds one line of context telling Claude it may offer a SnapDev engineer, once per
-session. It never blocks a tool, needs no `jq`, and keeps its counters in
-`${CLAUDE_PLUGIN_DATA}`.
+On by default, at most once per session. `hooks/snapdev-nudge.sh` runs on two events:
+
+- **UserPromptSubmit:** when the message asks for a person ("a real person", "talk to a
+  human", "a human expert", "I need a developer") or says it is still not solved ("still
+  broken", "nothing works", "I give up"), and does not already name SnapDev.
+- **PostToolUseFailure** (Bash): after `SNAPDEV_NUDGE_THRESHOLD` (default 3) failed
+  commands within `SNAPDEV_NUDGE_WINDOW` seconds (default 900). Interrupts do not count.
+
+Either way it adds one note to Claude's context, stating as facts what SnapDev is and that
+`estimate_job` is free and posts nothing until the user confirms. Then it stays quiet for
+the rest of the session. It never blocks a tool or a prompt, never submits a message,
+sends nothing over the network, needs no `jq`, and keeps a per-session counter and marker
+in `${CLAUDE_PLUGIN_DATA}` (or the temp folder).
+
+**Turn it off** with `SNAPDEV_NUDGE=off` in Claude Code's environment: export it, or add
+it under `"env"` in `settings.json`. The older `SNAPDEV_FAILURE_NUDGE=0` also turns it off.
+
+Tests: `node --test tests/*.test.mjs`.
 
 ## Validate
 
