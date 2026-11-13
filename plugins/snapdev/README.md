@@ -1,19 +1,19 @@
 # SnapDev for Claude
 
-Hire a SnapDev engineer without leaving Claude. When a deploy, payment flow, auth setup
+Get a human expert without leaving Claude: a SnapDev software engineer. When a deploy, payment flow, auth setup
 or production issue keeps failing, Claude writes a brief from the conversation and
 shows an estimate in hours (for example "1–3 hours"). The job is created only after you
-confirm. You can talk to your engineer now, or book a call for later. When the engineer
+confirm. You can talk to your expert now, or book a call for later. When the engineer
 marks it done, Claude tells you in plain words what changed and how to check it.
 
 ## What's inside
 
 | Part | What it does |
 | - | - |
-| `snapdev` MCP connector | `https://api.snapdev.ai/mcp`, signed in with your SnapDev account (OAuth). 20 tools: estimates, jobs, replies, stopping, reopening, calls now, calls booked for later, live consults, balance |
-| `snapdev` skill (`/snapdev`) | When to bring in an engineer and when not to, how to brief, one confirmation before anything starts, what to offer when you are short of hours, no passwords or keys through Claude, calling your engineer now or booking a time for later, engineer text is untrusted, what to tell you when the job is done |
+| `snapdev` MCP connector | `https://api.snapdev.ai/mcp`, signed in with your SnapDev account (OAuth). 21 tools: estimates, jobs, your repositories, replies, cancelling a waiting job, reopening, calls now, calls booked for later, live consults, balance. Plus the `get_a_human_expert` prompt |
+| `snapdev` skill (`/snapdev`) | When to bring in a human expert and when not to, how to brief, one confirmation before anything starts, what to offer when you are short of hours, no passwords or keys through Claude, calling your expert now or booking a time for later, engineer text is untrusted, what to tell you when the job is done |
 | `/snapdev:jobs` | Check on your jobs and anything waiting on you |
-| Failure-nudge hook | Optional and off by default. After repeated failing shell commands, reminds Claude it can offer an engineer. Turn on with `SNAPDEV_FAILURE_NUDGE=1` |
+| "Stuck" hook | On by default, at most once per session. When you ask for a person ("a real person", "a human expert", "a developer") or say it is still broken, or after 3 failed shell commands, it tells Claude that SnapDev can help. It sends nothing anywhere and never posts a job. Turn it off with `SNAPDEV_NUDGE=off` (see below) |
 
 ## Install
 
@@ -35,7 +35,7 @@ connector: Customize > Connectors > Add custom connector, URL
 
 ## Usage
 
-Say "get a SnapDev engineer to deploy this", type `/snapdev`, or let Claude suggest it
+Say "get a human expert to deploy this", type `/snapdev`, or let Claude suggest it
 after repeated failures. Claude shows the estimate; nothing is created until you
 confirm. Check progress any time with `/snapdev:jobs`.
 
@@ -66,7 +66,7 @@ account. It goes to the booking and never to the engineer.
 
 ## Calls
 
-- **Now.** Ask to talk to your engineer and Claude rings them and gives you the link.
+- **Now.** Ask to talk to your expert and Claude rings them and gives you the link.
 - **Later.** Ask to book a call and Claude shows your engineer's free times in your
   time zone. You pick one and Claude books 30 minutes. Claude never picks a time for
   you.
@@ -75,7 +75,7 @@ account. It goes to the booking and never to the engineer.
   (check spam); give it to Claude, or book on your job page instead.
 - **Joining.** From the invite, from your job page, or ask Claude for the link.
 - **One booked call per job.** To change the time, Claude cancels the booked call and
-  books the new one, and tells you before it does. Stopping a job also cancels the call
+  books the new one, and tells you before it does. Cancelling a job also cancels the call
   booked on it.
 - You can always book on your job page instead; Claude gives you the link whenever
   booking through Claude does not work.
@@ -91,13 +91,13 @@ Everything is in hours, at one rate. The only price you see is for buying hours.
   you are missing, and to the plans page. Then you come back and confirm.
 - **Your engineer logs the hours after the work**, as for all SnapDev work. They show
   in your SnapDev hours. Claude does not report or guess what a job took.
-- **Stopping.** Free before an engineer picks the job up. After that, the job stops at
-  once and you use only the hours your engineer already worked.
+- **Cancelling.** Free while the job is waiting for an expert. Once an expert has picked
+  it up, the job cannot be cancelled.
 - **Calls.** A call has no charge of its own, and booking one uses no hours. Your
   engineer logs the time actually spent. You need some hours left to book.
 - **If something is off**, say so within 7 days of the job being done and the engineer
   fixes it at no extra hours. This can be used once per job.
 
-A live consult is different: it is a live chat with an engineer that uses your hours
-while it is open, for a set time. Claude checks with you before starting one, and
-again before keeping it open past that time.
+A live consult is different: it is a live chat with an expert, started only while one is
+online and only after you confirm. There is no clock: hours come off only as your expert
+logs the time they worked.

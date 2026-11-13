@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".codex/hooks/snapdev-nudge.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

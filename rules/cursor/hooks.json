@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "hooks": {
+    "postToolUseFailure": [
+      {
+        "command": ".cursor/hooks/snapdev-nudge.sh"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "snapdev",
+  "version": "0.6.0",
+  "description": "Get a human expert, a SnapDev software engineer, to fix, finish or deploy your app when your AI gets stuck.",
+  "mcpServers": {
+    "snapdev": {
+      "httpUrl": "https://api.snapdev.ai/mcp"
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}

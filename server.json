@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Remotebase-AI/snapdev",
+  "title": "SnapDev",
+  "description": "Get a human expert (a software engineer) to fix, finish or deploy your app.",
+  "version": "0.6.0",
+  "websiteUrl": "https://snapdev.ai/mcp",
+  "repository": {
+    "url": "https://github.com/Remotebase-AI/snapdev-claude-plugin",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.snapdev.ai/mcp"
+    }
+  ]
+}
