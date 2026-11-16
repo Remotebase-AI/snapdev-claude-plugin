@@ -17,11 +17,14 @@ plugins/snapdev/
   commands/jobs.md                     /snapdev:jobs
   hooks/hooks.json, snapdev-nudge.sh   once-per-session note when stuck or asking for a person; SNAPDEV_NUDGE=off
   README.md, LICENSE, icon.png         listing README, MIT license, directory icon
+plugin.json, mcp.json, skills/snapdev/  the portable Agent Plugins package (Codex, Antigravity, others)
+.agents/plugins/marketplace.json       the Codex marketplace "snapdev", listing that package
+assets/                                icons for the Codex listing
 dev/staging.mcp.json                   env-overridable server URL for staging and local testing
 rules/                                 the same guidance and hooks for other AI tools (AGENTS.md, Cursor, VS Code, Codex, Windsurf)
 gemini-extension.json, GEMINI.md      the Gemini CLI extension
 server.json                           the official MCP Registry entry
-tests/                                tests for the hook script
+tests/                                tests for the hook script and the skill copies
 ```
 
 The MCP server itself (21 tools and one prompt), its MCP App cards (`ui://snapdev/*.html`) and the
@@ -63,6 +66,39 @@ loads all of it. To use only the tools, add the connector on its own:
 **Customize > Connectors > Add custom connector**, URL `https://api.snapdev.ai/mcp`.
 ChatGPT, Cursor and other MCP clients connect to the same URL.
 
+### Any agent with Agent Skills (`npx skills`)
+
+```bash
+npx skills add https://github.com/Remotebase-AI/snapdev-claude-plugin
+```
+
+The [Skills CLI](https://github.com/vercel-labs/skills) finds the one skill, `snapdev`,
+and asks which agents to set it up for (Claude Code, Cursor, Codex and many others). It
+installs the skill only: add the MCP server `https://api.snapdev.ai/mcp` in that agent
+too, unless it is one of the plugin installs on this page.
+
+### Codex (app and CLI)
+
+```bash
+codex plugin marketplace add Remotebase-AI/snapdev-claude-plugin
+codex plugin add snapdev@snapdev
+```
+
+This installs the root package: the MCP server from `mcp.json` and the skill from
+`skills/`. Codex shows the server as **Not logged in** until the first SnapDev call opens
+the sign-in. Codex's hook is separate, in [`rules/codex/`](rules/codex/).
+
+### Antigravity and other Agent Plugins clients
+
+The repository root follows the
+[Agent Plugins specification 1.0.0](https://agent-plugins.org/specification):
+`plugin.json`, `mcp.json` and `skills/`. Add the repository URL in the client's plugin
+installer, or for Antigravity:
+
+```bash
+agy plugin install https://github.com/Remotebase-AI/snapdev-claude-plugin
+```
+
 ### Other AI tools
 
 Codex, Cursor, VS Code, Gemini CLI, Windsurf and other MCP clients connect to the same
@@ -79,6 +115,17 @@ version of it for each:
 
 [`rules/README.md`](rules/README.md) says where each goes. `rules/AGENTS.md` is the
 master copy: change it with the skill, and copy its text into the other two.
+
+The skill itself has four copies, one per install route: `plugins/snapdev/skills/snapdev`
+is the master, and `skills/snapdev`, `plugins/snapdev-directory/skills/snapdev` and
+`plugins/snapdev-cursor/skills/snapdev` must match it byte for byte.
+`tests/skill-copies.test.mjs` fails when one drifts. After editing the master:
+
+```bash
+for d in skills plugins/snapdev-directory/skills plugins/snapdev-cursor/skills; do
+  rm -rf "$d/snapdev" && cp -R plugins/snapdev/skills/snapdev "$d/"
+done
+```
 
 ## Staging and local testing
 

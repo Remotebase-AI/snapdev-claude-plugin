@@ -1,0 +1,51 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "snapdev",
+  "version": "0.6.0",
+  "description": "Get a human expert, a SnapDev software engineer, to fix, finish or deploy your app when your AI gets stuck.",
+  "author": {
+    "name": "SnapDev",
+    "url": "https://snapdev.ai"
+  },
+  "homepage": "https://snapdev.ai/mcp",
+  "repository": "https://github.com/Remotebase-AI/snapdev-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "human-expert",
+    "engineers",
+    "deploy",
+    "payments",
+    "auth",
+    "debugging",
+    "human-in-the-loop",
+    "mcp"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "SnapDev",
+        "shortDescription": "Get a human expert on your app",
+        "longDescription": "SnapDev puts a human expert, a SnapDev software engineer, on your project when your AI gets stuck. Describe what is broken or unfinished, such as a deploy that fails, payments, sign-in, a database, or a bug in production. The agent writes the brief and shows a time estimate in hours. Nothing is posted until you confirm. You follow the job in the chat as your expert picks it up, asks questions and finishes, and you can call or book a call with them. When it is done, you see what changed and how to check it.\n\nYou need a SnapDev account: sign up at https://snapdev.ai, then connect the plugin to it when prompted. Getting started: https://snapdev.ai/mcp/guide\n\nHelp: team@snapdev.ai",
+        "developerName": "SnapDev",
+        "category": "Coding",
+        "capabilities": [
+          "Interactive",
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://snapdev.ai/mcp",
+        "supportURL": "https://snapdev.ai/mcp/guide",
+        "privacyPolicyURL": "https://snapdev.ai/privacy",
+        "termsOfServiceURL": "https://snapdev.ai/terms",
+        "defaultPrompt": [
+          "My Stripe webhook keeps failing with 400 Invalid signature on Vercel. Get me a human expert.",
+          "How is my SnapDev job doing?",
+          "Book a call with my expert tomorrow afternoon."
+        ],
+        "brandColor": "#3D6DF2",
+        "composerIcon": "./assets/icon-96.png",
+        "logo": "./assets/icon.png"
+      }
+    }
+  }
+}
