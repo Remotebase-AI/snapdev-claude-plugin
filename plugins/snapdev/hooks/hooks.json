@@ -6,7 +6,10 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/snapdev-nudge.sh",
+            "command": "bash",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/snapdev-nudge.sh"
+            ],
             "timeout": 5
           }
         ]
@@ -18,7 +21,10 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/snapdev-nudge.sh",
+            "command": "bash",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/hooks/snapdev-nudge.sh"
+            ],
             "timeout": 5
           }
         ]

@@ -57,3 +57,17 @@ diff -r plugins/snapdev/skills/snapdev plugins/snapdev-cursor/skills/snapdev
 diff <(sed '/^name: jobs$/d' plugins/snapdev-cursor/commands/jobs.md) plugins/snapdev/commands/jobs.md
 diff plugins/snapdev/hooks/snapdev-nudge.sh plugins/snapdev-cursor/scripts/snapdev-nudge.sh
 ```
+
+The Claude plugin directory copy (`plugins/snapdev-directory`) is `plugins/snapdev`
+without the hook, because the directory runs command hooks only from Verified
+organizations. This prints nothing when it matches:
+
+```bash
+diff plugins/snapdev/.claude-plugin/plugin.json plugins/snapdev-directory/.claude-plugin/plugin.json
+diff plugins/snapdev/.mcp.json plugins/snapdev-directory/.mcp.json
+diff plugins/snapdev/icon.png plugins/snapdev-directory/icon.png
+diff plugins/snapdev/LICENSE plugins/snapdev-directory/LICENSE
+diff -r plugins/snapdev/skills plugins/snapdev-directory/skills
+diff -r plugins/snapdev/commands plugins/snapdev-directory/commands
+test ! -e plugins/snapdev-directory/hooks
+```
