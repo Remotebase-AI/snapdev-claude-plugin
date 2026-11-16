@@ -1,0 +1,23 @@
+{
+  "name": "snapdev",
+  "displayName": "SnapDev",
+  "version": "0.6.0",
+  "description": "Get a human expert, a SnapDev software engineer, without leaving Cursor. Your AI writes the brief, shows an estimate in hours before you confirm, and tells you what changed when the work is done.",
+  "author": {
+    "name": "SnapDev",
+    "email": "team@snapdev.ai"
+  },
+  "homepage": "https://snapdev.ai/mcp",
+  "repository": "https://github.com/Remotebase-AI/snapdev-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "human-expert",
+    "engineers",
+    "deploy",
+    "payments",
+    "auth",
+    "debugging",
+    "mcp"
+  ],
+  "logo": "assets/logo.svg"
+}
