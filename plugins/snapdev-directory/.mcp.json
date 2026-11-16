@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "snapdev": {
+      "type": "http",
+      "url": "https://api.snapdev.ai/mcp"
+    }
+  }
+}
