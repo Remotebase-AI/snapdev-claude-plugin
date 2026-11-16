@@ -47,3 +47,13 @@ for f in rules/cursor/snapdev.mdc rules/windsurf/snapdev.md; do
   diff <(awk 'n>=2{print} /^---$/{n++}' "$f" | sed '1{/^$/d;}') rules/AGENTS.md
 done
 ```
+
+The Cursor Marketplace plugin (`plugins/snapdev-cursor`) carries copies of four masters.
+This also prints nothing when they match:
+
+```bash
+diff rules/cursor/snapdev.mdc plugins/snapdev-cursor/rules/snapdev.mdc
+diff -r plugins/snapdev/skills/snapdev plugins/snapdev-cursor/skills/snapdev
+diff <(sed '/^name: jobs$/d' plugins/snapdev-cursor/commands/jobs.md) plugins/snapdev/commands/jobs.md
+diff plugins/snapdev/hooks/snapdev-nudge.sh plugins/snapdev-cursor/scripts/snapdev-nudge.sh
+```
